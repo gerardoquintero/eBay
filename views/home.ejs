@@ -7,6 +7,11 @@
 </head>
 <body>
     <p>Home tab</p>
-    <a href="/create">Create Post</a>
+    <ul>
+        <% for (let p of posts) { %>
+            <li><%= p.title %> [<%= p.price %>] - <%= p.username %> <a href="edit">Details</a></li>
+        <% } %>
+    </ul>
+    <a href="create">Create Post</a>
 </body>
 </html>

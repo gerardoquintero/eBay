@@ -63,7 +63,12 @@ posts = [
 
 app.get('/', (req, res) => {
     console.log("You're Home")
-    res.render("home")
+    res.render("home", { posts })
+})
+
+app.get('/edit', (req, res) => {
+
+    res.render("edit", { posts })
 })
 
 app.listen(3000, () => {
@@ -76,5 +81,7 @@ app.get('/create', (req, res) => {
 
 app.post('/', (req, res) => {
     const { username, title, price, contactInfo, description } = req.body
+    // console.log(req.body)
     posts.push({ username, title, price, contactInfo, description, id: uuid() })
+    res.redirect("/")
 })
