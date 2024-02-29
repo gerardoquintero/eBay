@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <form method="post" action="/index/<%= currPost.id %>/?_method=PATCH">
+        <section>
+        <label for="username">Username:</label>
+        <input id="username" name="username" value="<%= currPost.username %>" required>
+    </section>
+    <section>
+        <label for="title">Title:</label>
+        <input id="title" name="title" required value="<%=currPost.title%>">
+    </section>
+    <section>
+        <label for="price">Price:</label>
+        <input id="price" name="price" required value="<%= currPost.price %>">
+    </section>
+    <section>
+        <label for="contact">Contact:</label>
+        <input id="contact" name="contact" required value="<%= currPost.contactInfo %>">
+    </section>
+    <section>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"><%= currPost.description %></textarea>
+    </section>
+    <a href="/index">Back</a>
+    <button>Post</button>   
+</form>
+
+
+    <a href="create">Create Post</a>
+</body>
+</html>

@@ -1,9 +1,11 @@
 const express = require(`express`)
 const app = express()
 const path = require("path")
+const methodOverride = require('method-override')
 const { v4: uuid } = require("uuid")
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
+app.use(methodOverride('_method'))
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 
@@ -65,14 +67,8 @@ app.get('/index', (req, res) => {
     res.render("index", { posts })
 })
 
-app.get('/edit', (req, res) => {
-
-    res.render("edit", { posts })
-})
-
 app.get('/index', (req, res) =>{
     res.render("index" , {posts})
-
 })
 
 app.listen(3000, () => {
@@ -85,7 +81,24 @@ app.get('/create', (req, res) => {
 
 app.post('/index', (req, res) => {
     const { username, title, price, contactInfo, description } = req.body
-    console.log(req.body)
+    // console.log(req.body
     posts.push({ username, title, price, contactInfo, description, id: uuid() })
+    res.redirect("/index")
+})
+app.get('/edit/:id', (req , res) => {
+    const { id } = req.params;
+    const currPost = posts.find(p => p.id === id);
+    console.log(currPost.id)
+    res.render('edit', { currPost })
+})
+app.patch('/edit/:id', (req, res) => {
+    const { id } = req.params;
+    const { username, title, price, contactInfo, description } = req.body
+    let newPost = posts.find(p => p.id === id);
+    newPost.username = username;
+    newPost.title = title;
+    newPost.price = price;
+    newPost.contactInfo = contactInfo;
+    newPost.description = description;
     res.redirect("/index")
 })
