@@ -1,11 +1,12 @@
 const express = require(`express`)
 const app = express()
 const path = require("path")
-const {v4: uuid} = require("uuid")
+const { v4: uuid } = require("uuid")
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
+
 
 posts = [
     {
@@ -15,7 +16,6 @@ posts = [
         'contactInfo': 'alice@yahoo.com',
         'description': 'Selling my acoustic guitar, in excellent condition.',
         'id': uuid()
-
     },
     {
         'username': 'Bob',
@@ -62,7 +62,12 @@ posts = [
 
 app.get('/', (req, res) => {
     console.log("You're Home")
-    res.render("home")
+    res.render("home", { posts })
+})
+
+app.get('/edit', (req, res) => {
+
+    res.render("edit", { posts })
 })
 
 app.get('/index', (req, res) =>{
@@ -72,4 +77,15 @@ app.get('/index', (req, res) =>{
 
 app.listen(3000, () => {
     console.log("Connected to port 3000")
+})
+
+app.get('/create', (req, res) => {
+    res.render('create')
+})
+
+app.post('/', (req, res) => {
+    const { username, title, price, contactInfo, description } = req.body
+    // console.log(req.body)
+    posts.push({ username, title, price, contactInfo, description, id: uuid() })
+    res.redirect("/")
 })
