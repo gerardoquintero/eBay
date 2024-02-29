@@ -85,7 +85,7 @@ app.get('/create', (req, res) => {
 
 app.post('/index', (req, res) => {
     const { username, title, price, contactInfo, description } = req.body
-    // console.log(req.body)
+    console.log(req.body)
     posts.push({ username, title, price, contactInfo, description, id: uuid() })
     res.redirect("/index")
 })
