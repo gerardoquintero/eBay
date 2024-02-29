@@ -2,7 +2,6 @@ const express = require(`express`)
 const app = express()
 const path = require("path")
 const { v4: uuid } = require("uuid")
-
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
 app.set("views", path.join(__dirname, "views"))
@@ -69,6 +68,11 @@ app.get('/', (req, res) => {
 app.get('/edit', (req, res) => {
 
     res.render("edit", { posts })
+})
+
+app.get('/index', (req, res) =>{
+    res.render("index" , {posts})
+
 })
 
 app.listen(3000, () => {
