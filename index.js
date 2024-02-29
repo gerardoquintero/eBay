@@ -4,11 +4,12 @@ const path = require("path")
 
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
-app.set("views", path.join(__dirname, "/views"))
+app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")
 
 app.get('/', (req, res) => {
     console.log("You're Home")
+    res.render("home")
 })
 
 app.listen(3000, () => {
