@@ -60,19 +60,14 @@ posts = [
 ]
 
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
     console.log("You're Home")
-    res.render("home", { posts })
+    res.render("index", { posts })
 })
 
 app.get('/edit', (req, res) => {
 
     res.render("edit", { posts })
-})
-
-app.get('/index', (req, res) =>{
-    res.render("index" , {posts})
-
 })
 
 app.listen(3000, () => {
@@ -83,9 +78,9 @@ app.get('/create', (req, res) => {
     res.render('create')
 })
 
-app.post('/', (req, res) => {
+app.post('/index', (req, res) => {
     const { username, title, price, contactInfo, description } = req.body
     // console.log(req.body)
     posts.push({ username, title, price, contactInfo, description, id: uuid() })
-    res.redirect("/")
+    res.redirect("/index")
 })
